@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="{% static 'Guest/css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'Guest/css/font-awesome.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'Guest/css/elegant-icons.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'Guest/css/nice-select.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'Guest/css/jquery-ui.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'Guest/css/owl.carousel.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'Guest/css/slicknav.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'Guest/css/style.css' %}" type="text/css">
+</head>
+
+<body>
+
+    <!-- Humberger Begin -->
+    <div class="humberger__menu__overlay"></div>
+
+    <div class="humberger__menu__wrapper">
+        <div class="humberger__menu__logo">
+            <a href="img/logo1.png"><img src="img/logo1.png" longdesc="img/logo1.png" /></a>
+        </div>
+
+
+        <nav class="header__menu" style="width:1200px;">
+            <ul>
+
+                <li class="active"><a href="index.php">Home</a></li>
+                <li><a href="">Registration</a>
+                    <ul class="header_menu_dropdown">
+                        <li><a href="view_category.php">Category Registration</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Humberger End -->
+
+
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="header__top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="header__logo">
+                        <a href="./"><h3>JobPortal</h3></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <nav class="header__menu"  style="width:1200px;">
+                      <ul>
+                          <li class="active"><a href="index.php">Home</a></li>
+
+                          <li><a href="#">Registration</a>
+                              <ul class="header__menu__dropdown">
+                                  <li><a href="/register_employer">Employer</a></li>
+                                  <li><a href="view_subcategory.php">Employee</a></li>
+                              </ul>
+
+                          </li>
+
+                          <li><a href="#">Login</a>
+                              <ul class="header__menu__dropdown">
+                                  <li><a href="allcustomer.php">Employer</a></li>
+                                  <li><a href="new_customer.php">Employee</a></li>
+                              </ul></li>
+
+                          <li><a href="../Guest/index.php" data-hover="Contact">Logout</a></li>
+                      </ul>
+                    </nav>
+
+                </div>
+
+                <div class="humberger__open">
+                    <i class="fa fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="row" style ="background-color:#7fad39; width:100%; height:5px;"></div>
+    <!-- Header Section End -->
+
+    <main>
+
+        {% block body %}{% endblock %}
+
+    </main>
+
+</body>
+</html>
