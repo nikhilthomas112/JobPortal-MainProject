@@ -20,10 +20,12 @@ from django.conf import settings
 
 from Account.urls import urlpatterns as accounts
 from MetaData.urls import urlpatterns as metadata
+from Employer.urls import urlpatterns as employer
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(accounts)),
     path('', include(metadata)),
+    path('', include(employer)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

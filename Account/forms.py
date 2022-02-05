@@ -89,3 +89,23 @@ class EmployeeSignUpForm(forms.ModelForm):
     class Meta:
         model = Employee
         fields = "__all__"
+
+
+class UserLoginForm(forms.Form):
+    username = forms.CharField(
+        widget=forms.EmailInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": "Enter mail id"
+            }
+        ),
+        label="E-mail"
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={
+                "class": "form-control"
+            }
+        )
+    )
+

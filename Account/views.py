@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth import authenticate, login
 
-from .forms import CreateUserForm, EmployeeSignUpForm, EmployerSignUpForm
+from .forms import CreateUserForm, EmployeeSignUpForm, EmployerSignUpForm, UserLoginForm
+from .models import Employer
 from MetaData.models import Country, CourseType
 
 
@@ -104,3 +105,34 @@ def register_employer(request):
         })
     else:
         return HttpResponse("User is not authenticated")
+
+
+def user_login(request):
+    if request.method == "POST":
+        form = UserLoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+
+            user = authenticate(username=username, password=password)
+
+            if user is not None and user.is_app_admin:
+                login(request, user)
+                return HttpResponse("Admin login")
+            elif user is not None and user.is_employer:
+                employer = Employer.objects.get(user=user)
+
+                print("User status is {}".format(employer.status))
+
+                if employer.status == "pending":
+                    return HttpResponse("Employer account is not verified.")
+
+                login(request, user)
+                print("User is employer")
+                return redirect("employer-home")
+            elif user is not None and user.is_employee:
+                login(request, user)
+                return HttpResponse("Employee login")
+    else:
+        form = UserLoginForm()
+    return render(request, "forms/login.html", {"form": form})

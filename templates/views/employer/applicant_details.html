@@ -1,0 +1,117 @@
+{% extends 'base/employer/base.html' %}
+
+{% load static %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-11" style="box-shadow: 2px 2px 10px #444; border-radius: 15px; top: 60px; padding-top: 20px">
+                <center>
+                    <img src="{{ applicant.employee.avatar_image.url }}" style="width: 100px; height: 100px; border-radius:500%;">
+                    <br>
+                </center>
+                <h3 style="text-align: center; color: #000"><b>{{ applicant.employee.first_name }} {{ applicant.employee.last_name }} </b></h3>
+                <p class="row" style="color: #444; margin-left: 180px; margin-right: 150px;">
+                    Name: {{ applicant.employee.first_name }} {{ applicant.employee.last_name }}
+                </p>
+                <p class="row" style="color: #444; margin-left: 180px; margin-right: 150px;">
+                    DOB: {{ applicant.employee.date_of_birth }}
+                </p>
+                <p class="row" style="color: #444; margin-left: 180px; margin-right: 150px;">
+                    Contact: {{ applicant.employee.contact }}
+                </p>
+                <p class="row" style="color: #444; margin-left: 180px; margin-right: 150px;">
+                    Mail ID: {{ applicant.employee.user.username }}
+                </p>
+                <p class="row" style="color: #444; margin-left: 180px; margin-right: 150px;">
+                    Address: {{ applicant.employee.location.place_name }},
+                    {{ applicant.employee.location.district.district_name }},
+                    {{ applicant.employee.location.district.state.state_name }},
+                    {{ applicant.employee.location.district.state.country.country_name }}
+                </p>
+                <p class="row" style="color: #444; margin-left: 180px; margin-right: 150px;">
+                    Education: {{ applicant.employee.course.course_name }}
+                </p>
+                <p class="row" style="color: #444; margin-left: 180px; margin-right: 150px;">
+                    Experience: {{ applicant.employee.experience }} Years
+                </p>
+                <p class="row" style="color: #444; margin-left: 180px; margin-right: 150px;">
+                    Resume: <a href="{{ applicant.employee.resume.url }}" download> Download</a>
+                </p>
+
+
+                <div class="container" style="margin-left:30px; ">
+                    <div class="row" >
+                        <div class="col-md-11" style="box-shadow: 2px 2px 10px #444; border-radius: 15px; top: 60px; padding-top: 20px; background: #fff;">
+                            <h3 style="text-align: center; color: #000"><b>UPDATE APPLICATION STATUS </b></h3>
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <form action="{% url 'applicant-details' %}" method="post">
+                                        {% csrf_token %}
+                                        <br>
+                                        <input type="hidden" name="application_id" value="{{ applicant.id }}">
+                                        <select name="status" id="id_status" class="form-control">
+
+                                            {% if applicant.status == "submitted" %}
+
+                                                <option value="submitted" selected>Submitted</option>
+                                                <option value="reviewed">Reviewed</option>
+                                                <option value="resume_shortlisted">Resume Shortlisted</option>
+                                                <option value="assessment">Selected for Assessment</option>
+                                                <option value="selected">Selected</option>
+
+                                            {% elif applicant.status == "reviewed" %}
+                                                <option value="submitted" >Submitted</option>
+                                                <option value="reviewed" selected>Reviewed</option>
+                                                <option value="resume_shortlisted" >Resume Shortlisted</option>
+                                                <option value="assessment">Selected for Assessment</option>
+                                                <option value="selected">Selected</option>
+
+                                            {% elif applicant.status == "resume_shortlisted" %}
+                                                <option value="submitted" >Submitted</option>
+                                                <option value="reviewed" >Reviewed</option>
+                                                <option value="resume_shortlisted" selected>Resume Shortlisted</option>
+                                                <option value="assessment">Selected for Assessment</option>
+                                                <option value="selected">Selected</option>
+
+                                            {% elif applicant.status == "assessment" %}
+                                                <option value="submitted" >Submitted</option>
+                                                <option value="reviewed" >Reviewed</option>
+                                                <option value="resume_shortlisted">Resume Shortlisted</option>
+                                                <option value="assessment" selected>Selected for Assessment</option>
+                                                <option value="selected">Selected</option>
+
+                                            {% elif applicant.status == "selected" %}
+                                                <option value="submitted" >Submitted</option>
+                                                <option value="reviewed" >Reviewed</option>
+                                                <option value="resume_shortlisted">Resume Shortlisted</option>
+                                                <option value="assessment" >Selected for Assessment</option>
+                                                <option value="selected" selected>Selected</option>
+
+                                            {% endif %}
+
+                                        </select>
+
+                                        <center>
+                                            <br>
+                                            <input type="submit" value="Save" class="btn btn-primary">
+                                        </center>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <div style="height: 200px;">
+
+    </div>
+
+{% endblock %}

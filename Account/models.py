@@ -6,7 +6,7 @@ from MetaData.models import Place, Course
 
 # Create your models here.
 class User(AbstractUser):
-    is_app_admin = models.BooleanField('Is app admin', default=False)
+    is_app_admin = models.BooleanField('Is app employer', default=False)
     is_employer = models.BooleanField('Is customer', default=False)
     is_employee = models.BooleanField('Is employee', default=False)
 

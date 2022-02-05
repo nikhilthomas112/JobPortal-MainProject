@@ -1,0 +1,66 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block body %}
+<form action="{% url 'user-login' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <script type="text/javascript" src="{% static 'scripts/jquery-3.3.1.min.js' %}"></script>
+    <div class="container" style="width:65%; margin-left:14% ;box-sizing:border-box; margin-bottom:2%; padding:30px 40px 30px 120px; box-shadow: 4px 4px 10px #0D0739; border-radius: 83px; margin-top:3%;">
+        {% if form.errors %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger alert-dismissable">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>{{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <div class="alert alert-danger alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        <div class="row" style="margin-left: -173%;margin-top: 2%;margin-bottom: -5%;">
+
+        </div>
+        <h2 style="text-align: center;margin-top: 6%;font-family:'Times New Roman', Times, serif;">SIGN-IN</h2>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-3" style="text-align:right">
+                <label for="id_username">Username:</label>
+            </div>
+            <div class="col-md-6">
+                <!--<input type="text" name="username" maxlength="50" required id="id_username" class="form-control">-->
+                {{ form.username }}
+            </div>
+        </div>
+
+         <br>
+
+        <div class="row">
+            <div class="col-md-3" style="text-align:right">
+                <label>Password:</label>
+            </div>
+            <div class="col-md-6">
+                <!--<input type="password" name="password" maxlength="200" required id="id_password" class="form-control">-->
+                {{ form.password }}
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <input type="submit" name="btnsubmit" value="Create" class="btn btn-primary" style="margin-left:63%">
+        </div>
+
+        <br>
+    </div>
+</form>
+
+{% endblock %}
+
