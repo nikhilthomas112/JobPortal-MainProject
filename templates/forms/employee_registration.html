@@ -1,0 +1,343 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block body %}
+<form action="{% url 'employee-signup' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <script type="text/javascript" src="{% static 'scripts/jquery-3.3.1.min.js' %}"></script>
+    <div class="container" style="width:65%; margin-left:14% ;box-sizing:border-box; margin-bottom:2%; padding:30px 40px 30px 120px; box-shadow: 4px 4px 10px #0D0739; border-radius: 83px; margin-top:3%;">
+        {% if form.errors %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger alert-dismissable">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>{{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <div class="alert alert-danger alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        <div class="row" style="margin-left: -173%;margin-top: 2%;margin-bottom: -5%;">
+
+        </div>
+        <h2 style="text-align: center;margin-top: 6%;font-family:'Times New Roman', Times, serif;">EMPLOYEE REGISTRATION</h2>
+
+        <br>
+
+
+        <input type="hidden" value="{{ user.id }}" name="user" id="id_user">
+
+        <div class="row">
+            <div class="col-md-3" style="text-align:right">
+                <label for="id_first_name">First name:</label>
+            </div>
+            <div class="col-md-6">
+               <!--<input type="text" name="first_name" class="form-control" maxlength="100" required id="id_first_name">-->
+                {{ form.first_name }}
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-3" style="text-align:right">
+                <label for="id_last_name">Last name:</label>
+            </div>
+            <div class="col-md-6">
+                <!--<input type="text" name="last_name" class="form-control" maxlength="100" required id="id_last_name">-->
+                {{ form.last_name }}
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-3" style="text-align:right">
+                <label for="id_dob">Dob:</label>
+            </div>
+            <div class="col-md-6">
+                <input type="date" name="date_of_birth" dataformatas="yyyy-mm-dd" class="form-control" required id="id_date_of_birth">
+
+            </div>
+        </div>
+
+         <br>
+
+        <div class="row">
+            <div class="col-md-3" style="text-align:right">
+                <label for="id_contact">Contact:</label>
+            </div>
+            <div class="col-md-6">
+                <!--<input type="number" name="contact" class="form-control" min="-9223372036854775808" max="9223372036854775807" required id="id_contact">-->
+                {{ form.contact }}
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-3" style="text-align:right">
+                <label for="id_country">Country:</label>
+            </div>
+            <div class="col-md-6">
+                <select name="country"  id="id_country" class="form-control" onchange="getState()">
+                    <option value="" selected>---------</option>
+                    {% for country in countries %}
+                        <option value="{{ country.id }}">{{ country.country_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-3" style="text-align:right">
+                <label for="id_state">State:</label>
+            </div>
+            <div class="col-md-6">
+                <select name="state"  id="id_state" class="form-control" onchange="getDistrict()">
+                    <option value="0" selected>---------</option>
+                </select>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-3" style="text-align:right">
+                <label for="id_district">District:</label>
+            </div>
+            <div class="col-md-6">
+                <select name="district"  id="id_district" class="form-control" onchange="getPlace()">
+                    <option value="" selected>---------</option>
+                </select>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-3" style="text-align:right">
+                <label for="id_location">Location:</label>
+            </div>
+            <div class="col-md-6">
+                <select name="location" class="form-control"  id="id_location">
+                    <option value="" selected>---------</option>
+                </select>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-3" style="text-align:right">
+                <label for="id_course_type">Course Type:</label>
+            </div>
+            <div class="col-md-6">
+                <select name="course_type"  id="id_course_type" class="form-control" onchange="getCourse()">
+                    <option value="" selected>---------</option>
+                    {% for course_type in course_types %}
+                        <option value="{{ course_type.id }}">{{ course_type.course_type }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-3" style="text-align:right">
+                <label for="id_course">Course:</label>
+            </div>
+            <div class="col-md-6">
+                <select name="course" class="form-control"  id="id_course">
+                    <option value="" selected>---------</option>
+                </select>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-3" style="text-align:right">
+                <label for="id_experience">Experience:</label>
+            </div>
+            <div class="col-md-6">
+                <!--<input type="number" name="experience" class="form-control" required id="id_experience">-->
+                {{ form.experience }}
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-3" style="text-align:right">
+                <label for="id_search_tags">Search tags:</label>
+            </div>
+            <div class="col-md-6">
+                <!--<input type="text" name="search_tags" class="form-control" maxlength="400" required id="id_search_tags">-->
+                {{ form.search_tags }}
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-3" style="text-align:right">
+                <label for="id_avatar">Avatar:</label>
+            </div>
+            <div class="col-md-6">
+                <!--<input type="file" name="avatar" class="form-control" accept="image/*" required id="id_avatar">-->
+                {{ form.avatar_image }}
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-3" style="text-align:right">
+                <label for="id_resume">Resume:</label>
+            </div>
+            <div class="col-md-6">
+                <!--<input type="file" name="resume" class="form-control" required id="id_resume">-->
+                {{ form.resume }}
+            </div>
+        </div>
+
+
+        <br>
+
+        <div class="row">
+            <input type="submit" name="btnsubmit" value="Create" class="btn btn-primary" style="margin-left:63%">
+        </div>
+
+        <br>
+    </div>
+</form>
+
+<script>
+
+    function makeContent(data) {
+        states = data.substr(0, data.length - 1)
+        //alert(states)
+        states = data.split(';')
+        content = "<option value='' selected>---------</option>\n"
+        for (state in states) {
+            //console.log(states[state])
+            data = states[state].split(',')
+            if (typeof data[1] === 'undefined') {
+                //console.log("Exit")
+                break
+            }
+            content += "<option value='" + data[0] + "'>" + data[1] + "</option>\n"
+            //console.log(data[0])
+            //console.log(data[1])
+            //alert(content)
+        }
+        return content
+    }
+
+
+	function getState()
+	{
+		var val=document.getElementById('id_country').value;
+		//alert(val);
+		$.ajax({
+			type: "POST",
+			url: "{% url 'get-state' %}",
+			data: {
+			    id:val,
+			    csrfmiddlewaretoken: '{{ csrf_token }}'
+			},
+
+			success: function(data){
+
+                content = makeContent(data)
+				$("#id_state").html(content);
+			}
+		})
+	}
+
+
+    function getDistrict()
+	{
+        //alert("GetDistrict")
+		var val=document.getElementById('id_state').value;
+		//alert(val);
+		$.ajax({
+			type: "POST",
+			url: "{% url 'get-district' %}",
+			data: {
+			    id:val,
+			    csrfmiddlewaretoken: '{{ csrf_token }}'
+			},
+
+			success: function(data){
+
+                content = makeContent(data)
+				$("#id_district").html(content);
+			}
+		})
+	}
+
+
+    function getPlace()
+	{
+        //alert("GetPLace")
+		var val=document.getElementById('id_district').value;
+		//alert(val);
+		$.ajax({
+			type: "POST",
+			url: "{% url 'get-place' %}",
+			data: {
+			    id:val,
+			    csrfmiddlewaretoken: '{{ csrf_token }}'
+			},
+
+			success: function(data){
+
+                content = makeContent(data)
+				$("#id_location").html(content);
+			}
+		})
+	}
+
+    function getCourse()
+	{
+        //alert("GetCourse")
+		var val=document.getElementById('id_course_type').value;
+		//alert(val);
+		$.ajax({
+			type: "POST",
+			url: "{% url 'get-course' %}",
+			data: {
+			    id:val,
+			    csrfmiddlewaretoken: '{{ csrf_token }}'
+			},
+
+			success: function(data){
+
+                content = makeContent(data)
+				$("#id_course").html(content);
+			}
+		})
+	}
+	</script>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+

@@ -18,10 +18,12 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 
-from Guest.urls import urlpatterns
+from Account.urls import urlpatterns as accounts
+from MetaData.urls import urlpatterns as metadata
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(urlpatterns))
+    path('', include(accounts)),
+    path('', include(metadata)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

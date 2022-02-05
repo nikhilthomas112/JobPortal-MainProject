@@ -1,0 +1,228 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block body %}
+<form action="{% url 'employer-signup' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="text" name="status" maxlength="10" value="pending" id="id_status" hidden>
+    <input type="hidden" value="{{ user.id }}" name="user" id="id_user">
+    <script type="text/javascript" src="{% static '/scripts/jquery-3.3.1.min.js' %}"></script>
+    <div class="container" style="width:65%; margin-left:14% ;box-sizing:border-box; margin-bottom:2%; padding:30px 40px 30px 120px; box-shadow: 4px 4px 10px #0D0739; border-radius: 83px; margin-top:3%;">
+        {% if form.errors %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger alert-dismissable">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>{{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <div class="alert alert-danger alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        <div class="row" style="margin-left: -173%;margin-top: 2%;margin-bottom: -5%;">
+            
+        </div>
+        <h2 style="text-align: center;margin-top: 6%;font-family:'Times New Roman', Times, serif;">EMPLOYER REGISTRATION</h2>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-3" style="text-align:right">
+                <label for="id_company_name">Company name:</label>
+            </div>
+            <div class="col-md-6">
+                {{ form.company_name }}
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-3" style="text-align:right">
+                <label for="id_company_type">Company Type:</label>
+            </div>
+            <div class="col-md-6">
+                {{ form.company_type }}
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-3" style="text-align:right">
+                <label for="id_about_company">About company:</label>
+            </div>
+            <div class="col-md-6">
+                {{ form.about_company }}
+            </div>
+        </div> 
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-3" style="text-align:right">
+                <label for="id_country">Country:</label>
+            </div>
+            <div class="col-md-6">
+                <select name="country" required id="id_country" class="form-control" onchange="getState()">
+                    <option value="" selected>---------</option>
+                    {% for country in countries %}
+                        <option value="{{ country.id }}">{{ country.country_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-3" style="text-align:right">
+                <label for="id_state">State:</label>
+            </div>
+            <div class="col-md-6">
+                <select name="state" required id="id_state" class="form-control" onchange="getDistrict()">
+                    <option value="" selected>---------</option>
+                </select>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-3" style="text-align:right">
+                <label for="id_district">District:</label>
+            </div>
+            <div class="col-md-6">
+                <select name="district" required id="id_district" class="form-control" onchange="getPlace()">
+                    <option value="" selected>---------</option>
+                </select>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-3" style="text-align:right">
+                <label for="id_place">Place:</label>
+            </div>
+            <div class="col-md-6">
+                <select name="place" required id="id_place" class="form-control">
+                    <option value="" selected>---------</option>
+                </select>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <input type="submit" name="btnsubmit" value="Create" class="btn btn-primary" style="margin-left:63%">
+        </div>
+
+        <br>
+    </div>
+</form>
+
+<script>
+
+    function makeContent(data) {
+        states = data.substr(0, data.length - 1)
+        //alert(states)
+        states = data.split(';')
+        content = "<option value='' selected>---------</option>\n"
+        for (state in states) {
+            //console.log(states[state])
+            data = states[state].split(',')
+            if (typeof data[1] === 'undefined') {
+                //console.log("Exit")
+                break
+            }
+            content += "<option value='" + data[0] + "'>" + data[1] + "</option>\n"
+            //console.log(data[0])
+            //console.log(data[1])
+            //alert(content)
+        }
+        return content
+    }
+
+
+	function getState()
+	{
+		var val=document.getElementById('id_country').value;
+		//alert(val);
+		$.ajax({
+			type: "POST",
+			url: "{% url 'get-state' %}",
+			data: {
+			    id:val,
+			    csrfmiddlewaretoken: '{{ csrf_token }}'
+			},
+
+			success: function(data){
+                
+                content = makeContent(data)
+				$("#id_state").html(content);
+			}
+		})
+	}
+
+
+    function getDistrict()
+	{
+        //alert("GetDistrict")
+		var val=document.getElementById('id_state').value;
+		//alert(val);
+		$.ajax({
+			type: "POST",
+			url: "{% url 'get-district' %}",
+			data: {
+			    id:val,
+			    csrfmiddlewaretoken: '{{ csrf_token }}'
+			},
+
+			success: function(data){
+                
+                content = makeContent(data)
+				$("#id_district").html(content);
+			}
+		})
+	}
+
+
+    function getPlace()
+	{
+        //alert("GetPLace")
+		var val=document.getElementById('id_district').value;
+		//alert(val);
+		$.ajax({
+			type: "POST",
+			url: "{% url 'get-place' %}",
+			data: {
+			    id:val,
+			    csrfmiddlewaretoken: '{{ csrf_token }}'
+			},
+
+			success: function(data){
+                
+                content = makeContent(data)
+				$("#id_place").html(content);
+			}
+		})
+	}
+	</script>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
