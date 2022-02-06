@@ -1,4 +1,4 @@
-import datetime
+import django
 
 from django.db import models
 from djmoney.models.fields import MoneyField
@@ -11,7 +11,7 @@ from Account.models import Employer, Employee
 class Job(models.Model):
     job_title = models.CharField(max_length=100)
     job_description = models.TextField()
-    post_date = models.DateField(default=datetime.date.today())
+    post_date = models.DateField(default=django.utils.timezone.now)
     salary = MoneyField(max_digits=14, decimal_places=2)
     course_name = models.ForeignKey(Course, on_delete=models.CASCADE)
     experience = models.IntegerField()

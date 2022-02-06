@@ -7,16 +7,29 @@ class NewJobForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(NewJobForm, self).__init__(*args, **kwargs)
-        self.fields['company_name'].widget.attrs.update({
+        self.fields['job_title'].widget.attrs.update({
             'class': 'form-control'
         })
-        self.fields['place'].widget.attrs.update({
+        self.fields['job_description'].widget.attrs.update({
             'class': 'form-control'
         })
-        self.fields['company_type'].widget.attrs.update({
+        self.fields['post_date'].widget.attrs.update({
+            'class': 'form-control',
+            'hidden': 'true'
+        })
+        self.fields['salary'].widget.attrs.update({
             'class': 'form-control'
         })
-        self.fields['about_company'].widget.attrs.update({
+        self.fields['course_name'].widget.attrs.update({
+            'class': 'form-control'
+        })
+        self.fields['experience'].widget.attrs.update({
+            'class': 'form-control'
+        })
+        self.fields['vacancies'].widget.attrs.update({
+            'class': 'form-control'
+        })
+        self.fields['search_tags'].widget.attrs.update({
             'class': 'form-control'
         })
 

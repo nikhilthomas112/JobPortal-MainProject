@@ -34,5 +34,5 @@ class Employer(models.Model):
     status = models.CharField(max_length=10, default="pending")
 
     def __str__(self):
-        return f'{self.company_name}, {self.place.place_name}, {self.company_type},' \
+        return f'{self.id}, {self.company_name}, {self.place.place_name}, {self.company_type},' \
                f' {self.about_company}'

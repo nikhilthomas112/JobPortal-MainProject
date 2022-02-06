@@ -1,7 +1,11 @@
+import datetime
+
 from django.shortcuts import render, redirect
 
 from .models import Job, ApplyJob
 from Account.models import Employer
+
+from .forms import NewJobForm
 
 
 # Create your views here.
@@ -61,6 +65,18 @@ def applicant_details(request):
 
 def add_new_job(request):
     if request.user.is_authenticated and request.user.is_employer:
-        return render(request, "base/employer/base.html")
+        employer = Employer.objects.get(user=request.user)
+        if request.method == "GET":
+            form = NewJobForm()
+        else:
+            form = NewJobForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('view-jobs')
+            print(form.errors)
+        return render(request, "forms/employer/add_new_job.html", {
+            'form': form,
+            'employer': employer,
+        })
     else:
         return redirect("index-page")
