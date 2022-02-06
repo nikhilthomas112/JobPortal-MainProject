@@ -24,6 +24,9 @@ class Employee(models.Model):
     avatar_image = models.ImageField(upload_to='avatars')
     resume = models.FileField(upload_to='resumes')
 
+    def __str__(self):
+        return f'{self.id}, {self.first_name}'
+
 
 class Employer(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
