@@ -26,7 +26,7 @@ class Job(models.Model):
 class ApplyJob(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
-    status = models.CharField(max_length=20)
+    status = models.CharField(max_length=20, default="submitted")
 
     def __str__(self):
         return f'{self.job.job_title}, {self.employee}'

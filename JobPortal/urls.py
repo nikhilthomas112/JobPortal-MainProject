@@ -21,6 +21,7 @@ from django.conf import settings
 from Account.urls import urlpatterns as accounts
 from MetaData.urls import urlpatterns as metadata
 from Employer.urls import urlpatterns as employer
+from Employee.urls import urlpatterns as employee
 
 
 urlpatterns = [
@@ -28,4 +29,5 @@ urlpatterns = [
     path('', include(accounts)),
     path('', include(metadata)),
     path('', include(employer)),
+    path('', include(employee)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

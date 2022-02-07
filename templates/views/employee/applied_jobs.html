@@ -1,0 +1,44 @@
+{% extends 'base/employee/base.html' %}
+
+{% load static %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-11" style="box-shadow: 2px 2px 10px #444; border-radius: 15px; top: 60px; padding-top: 20px">
+                <h3 style="text-align: center; color: #000"><b>APPLIED JOBS </b></h3>
+                <div class="form-horizontal">
+                    <div class="form-group">
+
+                        <table class="table table-hover" style=" border-radius: 10px; box-shadow: 3px 3px 11px #777777; margin-bottom:7%">
+                            <tr>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Post Date</th>
+                                <th>Salary</th>
+                                <th>Experience</th>
+                                <th>Vacancies</th>
+                                <th>Application Status</th>
+                            </tr>
+
+                            {% for applied_job in applied_jobs %}
+                                <tr onclick="window.location='{% url 'job-info' %}?jobid={{ applied_job.job.id }}'">
+                                    <td>{{ applied_job.job.job_title }}</td>
+                                    <td>{{ applied_job.job.job_description }}</td>
+                                    <td>{{ applied_job.job.post_date }}</td>
+                                    <td>{{ applied_job.job.salary }}</td>
+                                    <td>{{ applied_job.job.experience }}</td>
+                                    <td>{{ applied_job.job.vacancies }}</td>
+                                    <td>{{ applied_job.status }}</td>
+                                </tr>
+                            {% endfor %}
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

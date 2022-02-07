@@ -132,7 +132,7 @@ def user_login(request):
                 return redirect("employer-home")
             elif user is not None and user.is_employee:
                 login(request, user)
-                return HttpResponse("Employee login")
+                return redirect("employee-home")
     else:
         form = UserLoginForm()
     return render(request, "forms/login.html", {"form": form})

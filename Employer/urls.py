@@ -9,7 +9,7 @@ urlpatterns = [
     path('accounts/employer/jobs/applicants/details/', views.applicant_details, name="applicant-details"),
     path('accounts/employer/jobs/new/', views.add_new_job, name="new-job"),
     path('accounts/employer/find/employee/', views.search_employee, name="search-employee"),
-    path('accounts/employee/profile/', views.view_employee_profile, name="profile-employee"),
+    path('accounts/search/employee/profile/', views.view_employee_profile, name="profile-employee"),
     path('accounts/employer/profile/', views.view_profile, name="view-employer-profile"),
     path('accounts/employer/profile/edit/', views.edit_profile, name="edit-employer-profile")
 ]
