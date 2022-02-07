@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.db.models import Q
 
-from MetaData.models import Course
+from MetaData.models import Course, CourseType, Country, Place
 from Employer.models import Job, ApplyJob
 from Account.models import Employee
 
@@ -91,6 +91,51 @@ def view_profile(request):
 def edit_profile(request):
     if request.user.is_authenticated and request.user.is_employee:
         employee = Employee.objects.get(user=request.user)
-        return render(request, 'forms/employee/profile_update_form.html', {'employee': employee})
+        course_types = CourseType.objects.all
+        countries = Country.objects.all
+
+        if request.method == "POST":
+            first_name = request.POST.get('first_name')
+            last_name = request.POST.get('last_name')
+            date_of_birth = request.POST.get('date_of_birth')
+            contact = request.POST.get('contact')
+            location = request.POST.get('location')
+            course = request.POST.get('course')
+            experience = request.POST.get('experience')
+            search_tags = request.POST.get('search_tags')
+            username = request.POST.get('username')
+            avatar_image = request.FILES.get('avatar_image')
+            resume = request.FILES.get('resume')
+
+            print("Course:", course)
+            place = Place.objects.get(id=location)
+            course = Course.objects.get(id=course)
+            employee = Employee.objects.get(user=request.user)
+
+            employee.first_name = first_name
+            employee.last_name = last_name
+            employee.date_of_birth = date_of_birth
+            employee.contact = contact
+            employee.location = place
+            employee.course = course
+            employee.experience = experience
+            employee.search_tags = search_tags
+            employee.user.username = username
+
+            if avatar_image is not None:
+                employee.avatar_image = avatar_image
+
+            if resume is not None:
+                employee.resume = resume
+
+            employee.save()
+
+            return redirect("employee-profile")
+
+        return render(request, 'forms/employee/profile_update_form.html', {
+            'employee': employee,
+            'course_types': course_types,
+            'countries': countries
+        })
     else:
         return redirect("index")

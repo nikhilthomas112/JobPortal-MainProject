@@ -118,13 +118,13 @@ def user_login(request):
 
             if user is not None and user.is_app_admin:
                 login(request, user)
-                return HttpResponse("Admin login")
+                return redirect('admin-home')
             elif user is not None and user.is_employer:
                 employer = Employer.objects.get(user=user)
 
                 print("User status is {}".format(employer.status))
 
-                if employer.status == "pending":
+                if employer.status == "pending" or employer.status == "rejected":
                     return HttpResponse("Employer account is not verified.")
 
                 login(request, user)

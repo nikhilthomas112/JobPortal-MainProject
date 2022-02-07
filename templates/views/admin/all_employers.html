@@ -1,0 +1,43 @@
+{% extends 'base/admin/base.html' %}
+
+{% load static %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-11" style="box-shadow: 2px 2px 10px #444; border-radius: 15px; top: 60px; padding-top: 20px">
+                <h3 style="text-align: center; color: #000"><b>ALL EMPLOYERS </b></h3>
+                <div class="form-horizontal">
+                    <div class="form-group">
+
+                        <table class="table table-hover" style=" border-radius: 10px; box-shadow: 3px 3px 11px #777777; margin-bottom:7%">
+                            <tr>
+                                <th>Company Name</th>
+                                <th>Company Type</th>
+                                <th>Mail ID</th>
+                                <th>About </th>
+                                <th>Address</th>
+                            </tr>
+
+                            {% for employer in employers %}
+                                <tr onclick="window.location='{% url 'view-employers' %}?employer={{ employer.id }}&status=0'">
+                                    <td>{{ employer.company_name }}</td>
+                                    <td>{{ employer.company_type }}</td>
+                                    <td>{{ employer.user.username }}</td>
+                                    <td>{{ employer.about_company }}</td>
+                                    <td>{{ employer.place.place_name }},
+                                    {{ employer.place.district.district_name }},
+                                    {{ employer.place.district.state.state_name }},
+                                    {{ employer.place.district.state.country.country_name }}</td>
+                                </tr>
+                            {% endfor %}
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

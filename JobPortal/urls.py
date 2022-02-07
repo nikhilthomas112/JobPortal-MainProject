@@ -22,6 +22,7 @@ from Account.urls import urlpatterns as accounts
 from MetaData.urls import urlpatterns as metadata
 from Employer.urls import urlpatterns as employer
 from Employee.urls import urlpatterns as employee
+from Admin.urls import urlpatterns as app_admin
 
 
 urlpatterns = [
@@ -30,4 +31,5 @@ urlpatterns = [
     path('', include(metadata)),
     path('', include(employer)),
     path('', include(employee)),
+    path('', include(app_admin)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
