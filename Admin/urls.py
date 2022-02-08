@@ -14,4 +14,12 @@ urlpatterns = [
     path('accounts/admin/register/course-types/', views.register_course_type, name="register-course-type"),
     path('accounts/admin/view/courses/', views.view_course, name="view-courses"),
     path('accounts/admin/register/courses/', views.register_course, name="register-courses"),
+    path('accounts/admin/view/country/', views.view_country, name="view-countries"),
+    path('accounts/admin/register/country/', views.register_country, name="register-country"),
+    path('accounts/admin/view/country/states/', views.view_states, name="view-states"),
+    path('accounts/admin/register/states/', views.register_states, name="register-states"),
+    path('accounts/admin/view/country/states/districts/', views.view_districts, name="view-districts"),
+    path('accounts/admin/register/districts/', views.register_district, name="register-districts"),
+    path('accounts/admin/view/country/states/districts/places/', views.view_place, name="view-places"),
+    path('accounts/admin/register/places/', views.register_place, name="register-places"),
 ]

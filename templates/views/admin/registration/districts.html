@@ -1,0 +1,39 @@
+{% extends 'base/admin/base.html' %}
+
+{% load static %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-11" style="box-shadow: 2px 2px 10px #444; border-radius: 15px; top: 60px; padding-top: 20px">
+                <h3 style="text-align: center; color: #000"><b>DISTRICTS </b></h3>
+                <div class="col-sm-1">
+                    <a href="{% url 'register-districts' %}" class="btn btn-primary" style="margin-left:63%;margin-bottom:20px; width:150px;">Add New</a>
+                </div>
+                <div class="form-horizontal">
+                    <div class="form-group">
+
+                        <table class="table table-hover" style=" border-radius: 10px; box-shadow: 3px 3px 11px #777777; margin-bottom:7%">
+                            <tr>
+                                <th>District</th>
+                                <th>State</th>
+                                <th>Country</th>
+                            </tr>
+
+                            {% for district in districts %}
+                                <tr onclick="window.location='{% url 'view-places' %}?district={{ district.id }}'">
+                                    <td>{{ district.district_name }}</td>
+                                    <td>{{ district.state.state_name }}</td>
+                                    <td>{{ district.state.country.country_name }}</td>
+                                </tr>
+                            {% endfor %}
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect
 
 from Account.models import Employer, Employee
-from MetaData.models import *
-
 from .forms import *
 
 
@@ -139,6 +137,134 @@ def register_course(request):
                 return redirect('/accounts/admin/view/courses/?type={}'.format(request.POST.get('course_type_id')))
 
         return render(request, 'forms/admin/courses.html', {'form': form})
+
+    else:
+        return redirect('index-page')
+
+
+def view_country(request):
+    if request.user.is_authenticated and request.user.is_app_admin:
+        countries = Country.objects.all
+
+        return render(request, 'views/admin/registration/countries.html', {'countries': countries})
+
+    else:
+        return redirect('index-page')
+
+
+def register_country(request):
+    if request.user.is_authenticated and request.user.is_app_admin:
+        form = CountryRegisterForm()
+
+        if request.method == "POST":
+            print("Registering Country")
+            form = CountryRegisterForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('view-countries')
+
+        return render(request, 'forms/admin/country.html', {'form': form})
+
+    else:
+        return redirect('index-page')
+
+
+def view_states(request):
+    if request.user.is_authenticated and request.user.is_app_admin:
+        if request.method == "GET":
+            country_id = request.GET.get('country')
+            country = Country.objects.get(id=country_id)
+            states = State.objects.filter(country=country)
+
+            for state in states:
+                print(state)
+
+        return render(request, 'views/admin/registration/states.html', {'states': states})
+
+    else:
+        return redirect('index-page')
+
+
+def register_states(request):
+    if request.user.is_authenticated and request.user.is_app_admin:
+        form = StateRegisterForm()
+
+        if request.method == "POST":
+            print("Registering State")
+            form = StateRegisterForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('/accounts/admin/view/country/states/?country={}'.format(request.POST.get('country')))
+
+        return render(request, 'forms/admin/states.html', {'form': form})
+
+    else:
+        return redirect('index-page')
+
+
+def view_districts(request):
+    if request.user.is_authenticated and request.user.is_app_admin:
+        if request.method == "GET":
+            state_id = request.GET.get('state')
+            state = State.objects.get(id=state_id)
+            districts = District.objects.filter(state=state)
+
+            for district in districts:
+                print(district)
+
+        return render(request, 'views/admin/registration/districts.html', {'districts': districts})
+
+    else:
+        return redirect('index-page')
+
+
+def register_district(request):
+    if request.user.is_authenticated and request.user.is_app_admin:
+        form = DistrictRegisterForm()
+
+        if request.method == "POST":
+            print("Registering District")
+            form = DistrictRegisterForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('/accounts/admin/view/country/states/districts/?state={}'
+                                .format(request.POST.get('state')))
+
+        return render(request, 'forms/admin/districts.html', {'form': form})
+
+    else:
+        return redirect('index-page')
+
+
+def view_place(request):
+    if request.user.is_authenticated and request.user.is_app_admin:
+        if request.method == "GET":
+            district_id = request.GET.get('district')
+            district = District.objects.get(id=district_id)
+            places = Place.objects.filter(district=district)
+
+            for place in places:
+                print(place)
+
+        return render(request, 'views/admin/registration/place.html', {'places': places})
+
+    else:
+        return redirect('index-page')
+
+
+def register_place(request):
+    if request.user.is_authenticated and request.user.is_app_admin:
+        form = PlaceRegisterForm()
+
+        if request.method == "POST":
+            print("Registering Place")
+            form = PlaceRegisterForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('/accounts/admin/view/country/states/districts/places/?district={}'
+                                .format(request.POST.get('district')))
+
+        return render(request, 'forms/admin/place.html', {'form': form})
 
     else:
         return redirect('index-page')
