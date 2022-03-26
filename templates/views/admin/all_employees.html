@@ -3,38 +3,41 @@
 {% load static %}
 
 {% block body %}
-    <div class="container" style="margin-left:130px; ">
+
+    <br><br>
+    <div class="container" style="margin-left:130px; border-radius: 20px; border: thin double #00B074;">
         <div class="row" >
-            <div class="col-md-11" style="box-shadow: 2px 2px 10px #444; border-radius: 15px; top: 60px; padding-top: 20px; background: #fff;">
+            <div class="col-md-11">
+            <br><br>
                 <h3 style="text-align: center; color: #000"><b>APPLICANTS </b></h3>
                             <div class="form-horizontal">
                                 <div class="form-group">
 
 
-                                    <table class="table table-hover" style=" border-radius: 10px; box-shadow: 3px 3px 11px #777777; margin-bottom:7%; margin-top:20px;">
-                                        <tr>
-                                            <th>Image</th>
-                                            <th>Name</th>
-                                            <th>DOB</th>
-                                            <th>Contact</th>
-                                            <th>Address</th>
-                                            <th>Education</th>
-                                            <th>Experience</th>
-                                        </tr>
-
                                     {% for employee in employees %}
-                                        <tr onclick="window.location='{% url 'employee-profile-view' %}?employee={{ employee.id }}'">
-                                            <td><img src="{{ employee.avatar_image.url }}" style="width:50px; border-radius:10px;"/> </td>
-                                            <td>{{ employee.first_name }} {{ applicant.employee.last_name }}</td>
-                                            <td>{{ employee.date_of_birth }}</td>
-                                            <td>{{ employee.contact }}</td>
-                                            <td>{{ employee.location.place_name }},
-                                                {{ employee.location.district.district_name }},
-                                                {{ employee.location.district.state.state_name }},
-                                                {{ employee.location.district.state.country.country_name }}</td>
-                                            <td>{{ employee.course.course_name }}</td>
-                                            <td>{{ employee.experience }}</td>
-                                        </tr>
+
+
+                                        <div class="job-item p-4 mb-4">
+                                            <div class="row g-4">
+                                                <div class="col-sm-12 col-md-8 d-flex align-items-center">
+                                                    <img class="flex-shrink-0 img-fluid border rounded" src="{{ employee.avatar_image.url }}" alt="" style="width: 80px; height: 80px;">
+                                                    <div class="text-start ps-4">
+                                                        <h5 class="mb-3">{{ employee.first_name }} {{ employee.last_name }}</h5>
+                                                        <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i>{{ employee.location.place_name }},
+                                                {{ employee.location.district.district_name }}</span>
+                                                        <span class="text-truncate me-3"><i class="far fa fa-graduation-cap text-primary me-2"></i>{{ employee.course.course_name }}</span>
+                                                        <span class="text-truncate me-0"><i class="far fa-address-book text-primary me-2"></i>{{ employee.contact }}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
+                                                    <div class="d-flex mb-3">
+                                                        <a class="btn btn-primary" href="{% url 'employee-profile-view' %}?employee={{ employee.id }}">View</a>
+                                                    </div>
+                                                    <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i>Date of Birth: {{ employee.date_of_birth }}</small>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     {% endfor %}
 
                                     </table>

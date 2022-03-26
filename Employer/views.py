@@ -107,6 +107,8 @@ def search_employee(request):
 
 
 def view_employee_profile(request):
+    if not request.user.is_authenticated or not request.user.is_employer:
+        return redirect("index-page")
     if request.method == "GET":
         employee_id = request.GET.get('employee')
         employee = Employee.objects.get(id=int(employee_id))
@@ -114,12 +116,16 @@ def view_employee_profile(request):
 
 
 def view_profile(request):
+    if not request.user.is_authenticated or not request.user.is_employer:
+        return redirect("index-page")
     if request.method == "GET":
         employer = Employer.objects.get(user=request.user)
         return render(request, "views/employer/profile.html", {'employer': employer})
 
 
 def edit_profile(request):
+    if not request.user.is_authenticated or not request.user.is_employer:
+        return redirect("index-page")
     employer = Employer.objects.get(user=request.user)
     countries = Country.objects.all
     if request.method == "POST":

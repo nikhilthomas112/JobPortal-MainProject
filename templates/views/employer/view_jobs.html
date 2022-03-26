@@ -3,36 +3,49 @@
 {% load static %}
 
 {% block body %}
-    
+
+    <br><br>
     <div class="container">
         <div class="row">
-            <div class="col-md-11" style="box-shadow: 2px 2px 10px #444; border-radius: 15px; top: 60px; padding-top: 20px">
+            <div class="col-md-11" style=" border: thin double #00B074; border-radius: 20px;">
+            <br>
                 <h3 style="text-align: center; color: #000"><b>OUR JOBS </b></h3>
                 <div class="form-horizontal">
                     <div class="form-group">
                         <div class="col-sm-1">
-                            <a href="{% url 'new-job' %}" class="btn btn-primary" style="margin-left:63%;margin-bottom:20px; width:100px;">Add New</a>
+                            <a href="{% url 'new-job' %}" class="btn btn-primary"
+                               style="margin-left:63%;margin-bottom:20px; width:100px;">Add New</a>
                         </div>
 
-                        <table class="table table-hover" style=" border-radius: 10px; box-shadow: 3px 3px 11px #777777; margin-bottom:7%">
-                            <tr>
-                                <th>Title</th>
-                                <th>Description</th>
-                                <th>Post Date</th>
-                                <th>Salary</th>
-                                <th>Experience</th>
-                                <th>Vacancies</th>
-                            </tr>
-
                             {% for job in jobs %}
-                                <tr onclick="window.location='{% url 'job-details' %}?jobid={{ job.id }}'">
-                                    <td>{{ job.job_title }}</td>
-                                    <td>{{ job.job_description }}</td>
-                                    <td>{{ job.post_date }}</td>
-                                    <td>{{ job.salary }}</td>
-                                    <td>{{ job.experience }}</td>
-                                    <td>{{ job.vacancies }}</td>
-                                </tr>
+
+                                <div class="job-item p-4 mb-4">
+                                    <div class="row g-4">
+                                        <div class="col-sm-12 col-md-8 d-flex align-items-center">
+                                            <img class="flex-shrink-0 img-fluid border rounded"
+                                                 src="{{ job.employer.logo.url }}" alt=""
+                                                 style="width: 80px; height: 80px;">
+                                            <div class="text-start ps-4">
+                                                <h5 class="mb-3">{{ job.job_title }}</h5>
+                                                <span class="text-truncate me-3"><i
+                                                        class="fa fa-map-marker-alt text-primary me-2"></i>{{ job.employer.place.place_name }}</span>
+                                                <span class="text-truncate me-3"><i
+                                                        class="far fa-clock text-primary me-2"></i>Full Time</span>
+                                                <span class="text-truncate me-0"><i
+                                                        class="far fa-money text-primary me-2"></i>{{ job.salary }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
+                                            <div class="d-flex mb-3">
+                                                <a class="btn btn-primary"
+                                                   href="{% url 'job-details' %}?jobid={{ job.id }}">View</a>
+                                            </div>
+                                            <small class="text-truncate"><i
+                                                    class="far fa-calendar-alt text-primary me-2"></i>Post Date: {{ job.post_date }}</small>
+                                        </div>
+                                    </div>
+                                </div>
+
                             {% endfor %}
 
                         </table>

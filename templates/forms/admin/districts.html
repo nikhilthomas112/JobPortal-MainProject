@@ -6,7 +6,7 @@
 <form action="{% url 'register-districts' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <script type="text/javascript" src="{% static 'scripts/jquery-3.3.1.min.js' %}"></script>
-    <div class="container" style="width:65%; margin-left:14% ;box-sizing:border-box; margin-bottom:2%; padding:30px 40px 30px 120px; box-shadow: 4px 4px 10px #0D0739; border-radius: 83px; margin-top:3%;">
+    <div class="container" style="width:65%; margin-left:14% ;box-sizing:border-box; margin-bottom:2%; padding:30px 40px 30px 120px; border: thin double #00B074; border-radius: 20px; margin-top:3%;">
         {% if form.errors %}
                 {% for field in form %}
                     {% for error in field.errors %}
@@ -35,7 +35,7 @@
         <br>
 
         <div class="row">
-            <input type="submit" name="btnsubmit" value="Create" class="btn btn-primary" style="margin-left:63%">
+            <input type="submit" name="btnsubmit" value="Create" class="btn btn-primary" style="margin-left:63%; width: 200px">
         </div>
 
         <br>

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, HttpResponse
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 from .forms import CreateUserForm, EmployeeSignUpForm, EmployerSignUpForm, UserLoginForm
 from .models import Employer
@@ -8,7 +8,7 @@ from MetaData.models import Country, CourseType
 
 # Create your views here.
 def index(request):
-    return render(request, "base/base.html")
+    return render(request, "index.html")
 
 
 def create_user(request):
@@ -90,7 +90,7 @@ def register_employer(request):
         courses = CourseType.objects.all
 
         if request.method == 'POST':
-            form = EmployerSignUpForm(request.POST)
+            form = EmployerSignUpForm(request.POST, request.FILES)
             if form.is_valid():
                 user = form.save()
                 return redirect('/')
@@ -136,3 +136,8 @@ def user_login(request):
     else:
         form = UserLoginForm()
     return render(request, "forms/login.html", {"form": form})
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('index-page')

@@ -8,10 +8,16 @@ from Account.models import Employee
 
 # Create your views here.
 def employee_home(request):
+    ho = request.user.is_authenticated
+    hi = request.user.is_employee
+    if not request.user.is_authenticated or not request.user.is_employee:
+        return redirect('index-page')
     return render(request, "base/employee/base.html")
 
 
 def search_jobs(request):
+    if not request.user.is_authenticated or not request.user.is_employee:
+        return redirect('index-page')
     courses = Course.objects.all
     if request.method == "POST":
         search_keyword = request.POST.get('search_keyword')
@@ -37,6 +43,8 @@ def search_jobs(request):
 
 
 def job_details(request):
+    if not request.user.is_authenticated or not request.user.is_employee:
+        return redirect('index-page')
     status = ""
     if request.method == "GET":
         job_id = request.GET.get('jobid')
@@ -48,7 +56,7 @@ def job_details(request):
         print("JOB Id :", job_id)
         apply = ApplyJob.objects.filter(Q(job=job_id) & Q(employee=employee))
         is_applied = False
-        if apply is not None:
+        if len(apply) != 0:
             is_applied = True
             for i in apply:
                 status = i.status
@@ -71,6 +79,8 @@ def apply_job(request):
             apply = ApplyJob.objects.get_or_create(job=job, employee=employee)
 
             return redirect('/jobs/details/?jobid={}'.format(job_id))
+    else:
+        return request('index-page')
 
 
 def applied_jobs(request):
@@ -85,7 +95,7 @@ def view_profile(request):
         employee = Employee.objects.get(user=request.user)
         return render(request, 'views/employee/profile.html', {'employee': employee})
     else:
-        return redirect("index")
+        return redirect("index-page")
 
 
 def edit_profile(request):
@@ -138,4 +148,4 @@ def edit_profile(request):
             'countries': countries
         })
     else:
-        return redirect("index")
+        return redirect("index-page")

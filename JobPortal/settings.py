@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-2^)+39jd%t52x6*=97eh&etv13rvh9r6aix!rq(27oc%_=vu_b'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['0.0.0.0']
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1']
 
 
 # Application definition
@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'Account',
     'MetaData',
     'Admin',
-    'Employer'
+    'Employer',
+    'Reports'
 ]
 
 MIDDLEWARE = [

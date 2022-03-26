@@ -4,12 +4,14 @@
 
 {% block body %}
 
+    <br>
     <div class="container">
         <div class="row">
-            <div class="col-md-11" style="box-shadow: 2px 2px 10px #444; border-radius: 15px; top: 60px; padding-top: 20px">
+            <div class="col-md-11" style="border: thin double #00B074; border-radius: 20px;">
+                <br>
                 <center>
                     <img src="{{ applicant.employee.avatar_image.url }}" style="width: 100px; height: 100px; border-radius:500%;">
-                    <br>
+                    <br><br>
                 </center>
                 <h3 style="text-align: center; color: #000"><b>{{ applicant.employee.first_name }} {{ applicant.employee.last_name }} </b></h3>
                 <p class="row" style="color: #444; margin-left: 180px; margin-right: 150px;">
@@ -43,8 +45,8 @@
 
                 <div class="container" style="margin-left:30px; ">
                     <div class="row" >
-                        <div class="col-md-11" style="box-shadow: 2px 2px 10px #444; border-radius: 15px; top: 60px; padding-top: 20px; background: #fff;">
-                            <h3 style="text-align: center; color: #000"><b>UPDATE APPLICATION STATUS </b></h3>
+                        <div class="col-md-11" style="border: thin double #00B074; border-radius: 20px; top: 60px; padding-top: 20px; background: #fff;">
+                            <h4 style="text-align: center; color: #000"><b>UPDATE APPLICATION STATUS </b></h4>
                             <div class="form-horizontal">
                                 <div class="form-group">
                                     <form action="{% url 'applicant-details' %}" method="post">
@@ -97,12 +99,14 @@
                                             <br>
                                             <input type="submit" value="Save" class="btn btn-primary">
                                         </center>
+                                        <br>
                                     </form>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            <br>
 
 
             </div>

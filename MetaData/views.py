@@ -44,3 +44,11 @@ def get_course(request):
             response += str(course.id) + "," + str(course.course_name)
 
         return HttpResponse(response)
+
+
+def error_page_400(request, exception):
+    return render(request, 'error.html')
+
+
+def error_page_500(request):
+    return render(request, 'error.html')

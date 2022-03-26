@@ -51,6 +51,9 @@ class EmployerSignUpForm(forms.ModelForm):
         self.fields['about_company'].widget.attrs.update({
             'class': 'form-control'
         })
+        self.fields['logo'].widget.attrs.update({
+            'class': 'form-control'
+        })
 
     class Meta:
         model = Employer

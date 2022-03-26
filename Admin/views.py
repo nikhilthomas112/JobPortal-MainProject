@@ -6,7 +6,10 @@ from .forms import *
 
 # Create your views here.
 def admin_home(request):
-    return render(request, "base/admin/base.html")
+    if request.user.is_authenticated and request.user.is_app_admin:
+        return render(request, "base/admin/base.html")
+    else:
+        return redirect('index-page')
 
 
 def view_new_employers(request):

@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
@@ -23,6 +24,7 @@ from MetaData.urls import urlpatterns as metadata
 from Employer.urls import urlpatterns as employer
 from Employee.urls import urlpatterns as employee
 from Admin.urls import urlpatterns as app_admin
+from Reports.urls import urlpatterns as reports
 
 
 urlpatterns = [
@@ -32,4 +34,10 @@ urlpatterns = [
     path('', include(employer)),
     path('', include(employee)),
     path('', include(app_admin)),
+    path('', include(reports)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler404 = "MetaData.views.error_page_400"
+handler500 = "MetaData.views.error_page_500"
+handler403 = "MetaData.views.error_page_400"
+handler400 = "MetaData.views.error_page_400"
