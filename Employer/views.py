@@ -12,7 +12,7 @@ from .forms import NewJobForm
 # Create your views here.
 def employer_home(request):
     if request.user.is_authenticated and request.user.is_employer:
-        return render(request, "base/employer/base.html")
+        return render(request, "index/employer/index.html")
     else:
         return redirect("index-page")
 

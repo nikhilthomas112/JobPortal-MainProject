@@ -12,12 +12,13 @@ def employee_home(request):
     hi = request.user.is_employee
     if not request.user.is_authenticated or not request.user.is_employee:
         return redirect('index-page')
-    return render(request, "base/employee/base.html")
+    return render(request, "index/employee/index.html")
 
 
 def search_jobs(request):
+    template = 'search/jobs/search_jobs.html'
     if not request.user.is_authenticated or not request.user.is_employee:
-        return redirect('index-page')
+        template = 'index.html'
     courses = Course.objects.all
     if request.method == "POST":
         search_keyword = request.POST.get('search_keyword')
@@ -36,16 +37,15 @@ def search_jobs(request):
             )
     else:
         jobs = {}
-    return render(request, "search/jobs/search_jobs.html", {
+    return render(request, template, {
         'jobs': jobs,
         'courses': courses
     })
 
 
 def job_details(request):
-    if not request.user.is_authenticated or not request.user.is_employee:
-        return redirect('index-page')
     status = ""
+    is_applied = False
     if request.method == "GET":
         job_id = request.GET.get('jobid')
         job = Job.objects.get(id=job_id)
@@ -55,7 +55,6 @@ def job_details(request):
         employee = Employee.objects.get(user=request.user)
         print("JOB Id :", job_id)
         apply = ApplyJob.objects.filter(Q(job=job_id) & Q(employee=employee))
-        is_applied = False
         if len(apply) != 0:
             is_applied = True
             for i in apply:

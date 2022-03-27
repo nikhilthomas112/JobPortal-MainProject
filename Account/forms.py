@@ -10,7 +10,8 @@ class CreateUserForm(UserCreationForm):
         widget=forms.EmailInput(
             attrs={
                 "class": "form-control",
-                "placeholder": "Enter mail id"
+                "placeholder": "Enter mail id",
+                "maxlength": "20"
             }
         ),
         label="E-mail"

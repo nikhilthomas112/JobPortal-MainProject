@@ -3,12 +3,13 @@ from django.contrib.auth import authenticate, login, logout
 
 from .forms import CreateUserForm, EmployeeSignUpForm, EmployerSignUpForm, UserLoginForm
 from .models import Employer
-from MetaData.models import Country, CourseType
+from MetaData.models import Country, CourseType, Course
 
 
 # Create your views here.
 def index(request):
-    return render(request, "index.html")
+    courses = Course.objects.all
+    return render(request, "index.html", {'courses': courses})
 
 
 def create_user(request):

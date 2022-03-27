@@ -7,7 +7,7 @@ from .forms import *
 # Create your views here.
 def admin_home(request):
     if request.user.is_authenticated and request.user.is_app_admin:
-        return render(request, "base/admin/base.html")
+        return render(request, "index/admin/index.html")
     else:
         return redirect('index-page')
 
