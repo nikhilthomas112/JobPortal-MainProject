@@ -14,7 +14,15 @@
                                 <div class="col-10 col-lg-8">
                                     <h1 class="display-3 text-white animated slideInDown mb-4">Find The Perfect Job That You Deserved</h1>
                                     <p class="fs-5 fw-medium text-white mb-4 pb-2">Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea elitr.</p>
-                                    <a href="#search-job" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Search A Job</a>
+                                    <div class="nav-item dropdown">
+                                        <a href="#" class="nav-link dropdown-toggle btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block animated slideInLeft" style="color: #FFFFFF; width: fit-content" data-bs-toggle="dropdown">REPORTS</a>
+                                        <div class="dropdown-menu rounded-0 m-0">
+                                            <a href="{% url 'employer-report' %}" class="dropdown-item">Employer-Jobs</a>
+                                            <a href="{% url 'vacancy-employee-report' %}" class="dropdown-item">Vacancies-Employees</a>
+                                            <a href="{% url 'course-employee-report' %}" class="dropdown-item">Courses-Employee</a>
+                                            <a href="{% url 'experience-employee-report' %}" class="dropdown-item">Experience-Employee</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -28,7 +36,15 @@
                                 <div class="col-10 col-lg-8">
                                     <h1 class="display-3 text-white animated slideInDown mb-4">Find The Best Startup Job That Fit You</h1>
                                     <p class="fs-5 fw-medium text-white mb-4 pb-2">Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea elitr.</p>
-                                    <a href="#search-job" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Search A Job</a>
+                                    <div class="nav-item dropdown">
+                                        <a href="#" class="nav-link dropdown-toggle btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block animated slideInLeft" style="color: #FFFFFF; width: fit-content" data-bs-toggle="dropdown">REPORTS</a>
+                                        <div class="dropdown-menu rounded-0 m-0">
+                                            <a href="{% url 'employer-report' %}" class="dropdown-item">Employer-Jobs</a>
+                                            <a href="{% url 'vacancy-employee-report' %}" class="dropdown-item">Vacancies-Employees</a>
+                                            <a href="{% url 'course-employee-report' %}" class="dropdown-item">Courses-Employee</a>
+                                            <a href="{% url 'experience-employee-report' %}" class="dropdown-item">Experience-Employee</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

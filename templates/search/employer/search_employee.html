@@ -4,119 +4,78 @@
 
 {% block body %}
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-11" >
-                <form action="{% url 'search-employee' %}" method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <script type="text/javascript" src="{% static 'scripts/jquery-3.3.1.min.js' %}"></script>
-                    <div class="container" style="width:70%; margin-left:14% ;box-sizing:border-box; margin-bottom:2%; padding:30px 40px 30px 120px; border: thin double #00B074; border-radius: 20px; margin-top:3%;">
-                        {% if form.errors %}
-                                {% for field in form %}
-                                    {% for error in field.errors %}
-                                        <div class="alert alert-danger alert-dismissable">
-                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                            <strong>{{ error|escape }}</strong>
+
+
+
+    <div class="container-contact100">
+
+		<div class="wrap-contact100" style="border: thin double #00B074;">
+			<div class="contact100-form-title" style="background-image: url({% static 'img/bg-01.jpg' %});">
+				<span class="contact100-form-title-1">
+					Find An Employee
+				</span>
+
+				<span class="contact100-form-title-2">
+					Get in touch with an employee!
+				</span>
+			</div>
+
+			<form action="{% url 'search-employee' %}" method="post" class="contact100-form validate-form">
+                {% csrf_token %}
+				<div class="wrap-input100 validate-input" data-validate="Name is required">
+					<span class="label-input100">Search by keyword:</span>
+                    <input type="text" name="search_keyword" class="input100" maxlength="100" id="id_search_keyword">
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="wrap-input100 validate-input" data-validate="Phone is required">
+					<span class="label-input100">Search by course:</span>
+					<select name="search_course" id="id_search_course" class="input100">
+
+                        <option value="">---------------</option>
+                        {% for course in courses %}
+                            <option value="{{ course.id }}">{{ course.course_name }}</option>
+                        {% endfor %}
+
+                    </select>
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="container-contact100-form-btn" style="text-align: center;">
+					<button type="submit" class="contact100-form-btn">
+						<span>
+							Submit
+							<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+						</span>
+					</button>
+				</div>
+			</form>
+
+            {% for employee in employees %}
+
+                            <div class="job-item p-4 mb-4" style="margin: 7px;">
+                                <div class="row g-4">
+                                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
+                                        <img class="flex-shrink-0 img-fluid border rounded" src="{{ employee.avatar_image.url }}" alt="" style="width: 80px; height: 80px;">
+                                        <div class="text-start ps-4">
+                                            <h5 class="mb-3">{{ employee.first_name }} {{ employee.last_name }}</h5>
+                                            <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i>{{ employee.location.place_name }},{{ employee.location.district.district_name }}</span>
+                                            <span class="text-truncate me-3"><i class="far fa fa-graduation-cap text-primary me-2"></i>{{ employee.course.course_name }}</span>
+                                            <span class="text-truncate me-0"><i class="far fa-address-book text-primary me-2"></i>{{ employee.contact }}</span>
                                         </div>
-                                    {% endfor %}
-                                {% endfor %}
-                                {% for error in form.non_field_errors %}
-                                    <div class="alert alert-danger alert-dismissable">
-                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                        <strong>{{ error|escape }}</strong>
                                     </div>
-                                {% endfor %}
-                            {% endif %}
-                        <div class="row" style="margin-left: -173%;margin-top: 2%;margin-bottom: -5%;">
-
-                        </div>
-                        <h2 style="text-align: center;margin-top: 6%;font-family:'Times New Roman', Times, serif;">SEARCH EMPLOYEES</h2>
-
-                        <br>
-
-                        <div class="row">
-                            <div class="col-md-3" style="text-align:right">
-                                <label for="id_search_keyword">Search by keyword:</label>
-                            </div>
-                            <div class="col-md-6">
-                               <input type="text" name="search_keyword" class="form-control" maxlength="100" id="id_search_keyword">
-                            </div>
-                        </div>
-                        <h4 style="text-align: center;margin-top: 6%;font-family:'Times New Roman', Times, serif;">OR</h4>
-                        <br>
-
-                        <div class="row">
-                            <div class="col-md-3" style="text-align:right">
-                                <label for="id_search_course">Search by course:</label>
-                            </div>
-                            <div class="col-md-6">
-                                <select name="search_course" id="id_search_course" class="form-select border-1">
-
-                                    <option value="">---------------</option>
-                                    {% for course in courses %}
-                                        <option value="{{ course.id }}">{{ course.course_name }}</option>
-                                    {% endfor %}
-
-                                </select>
-                            </div>
-                        </div>
-
-                        <br>
-
-                        <div class="row">
-                            <input type="submit" name="btnsubmit" value="Search" class="btn btn-primary" style="width: 150px;margin-left:63%">
-                        </div>
-
-                        <br>
-                    </div>
-                </form>
-
-
-                <div class="container" style="margin-left:30px; ">
-                    <div class="row" >
-                        <div class="col-md-11">
-                            <h3 style="text-align: center; color: #000"><b>SEARCH RESULT </b></h3>
-                            <div class="form-horizontal">
-                                <div class="form-group">
-
-
-
-                                    {% for employee in employees %}
-
-                                        <div class="job-item p-4 mb-4">
-                                            <div class="row g-4">
-                                                <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                                                    <img class="flex-shrink-0 img-fluid border rounded" src="{{ employee.avatar_image.url }}" alt="" style="width: 80px; height: 80px;">
-                                                    <div class="text-start ps-4">
-                                                        <h5 class="mb-3">{{ employee.first_name }} {{ employee.last_name }}</h5>
-                                                        <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i>{{ employee.location.place_name }},
-                                                {{ employee.location.district.district_name }}</span>
-                                                        <span class="text-truncate me-3"><i class="far fa fa-graduation-cap text-primary me-2"></i>{{ employee.course.course_name }}</span>
-                                                        <span class="text-truncate me-0"><i class="far fa-address-book text-primary me-2"></i>{{ employee.contact }}</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
-                                                    <div class="d-flex mb-3">
-                                                        <a class="btn btn-primary" href="{% url 'profile-employee' %}?employee={{ employee.id }}">View</a>
-                                                    </div>
-                                                    <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i>Date of Birth: {{ employee.date_of_birth }}</small>
-                                                </div>
-                                            </div>
+                                    <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
+                                        <div class="d-flex mb-3">
+                                            <a class="btn btn-primary" href="{% url 'profile-employee' %}?employee={{ employee.id }}">View</a>
                                         </div>
-
-                                    {% endfor %}
-
-                                    </table>
+                                        <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i>Date of Birth: {{ employee.date_of_birth }}</small>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
 
-
-            </div>
-        </div>
-    </div>
+                        {% endfor %}
+		</div>
+	</div>
 
 
     <div style="height: 200px;">

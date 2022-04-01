@@ -3,64 +3,44 @@
 {% load static %}
 
 {% block body %}
-<form action="{% url 'user-login' %}" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <script type="text/javascript" src="{% static 'scripts/jquery-3.3.1.min.js' %}"></script>
-    <div class="container" style="width:65%; margin-left:14% ;box-sizing:border-box; margin-bottom:2%; padding:30px 40px 30px 120px; border: thin double #00B074; border-radius: 20px; margin-top:3%;">
-        {% if form.errors %}
-                {% for field in form %}
-                    {% for error in field.errors %}
-                        <div class="alert alert-danger alert-dismissable">
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                            <strong>{{ error|escape }}</strong>
-                        </div>
-                    {% endfor %}
-                {% endfor %}
-                {% for error in form.non_field_errors %}
-                    <div class="alert alert-danger alert-dismissable">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <strong>{{ error|escape }}</strong>
-                    </div>
-                {% endfor %}
-            {% endif %}
-        <div class="row" style="margin-left: -173%;margin-top: 2%;margin-bottom: -5%;">
+    <div class="container-contact100">
 
-        </div>
-        <h2 style="text-align: center;margin-top: 6%;font-family:'Times New Roman', Times, serif;">SIGN-IN</h2>
+		<div class="wrap-contact100" style="border: thin double #00B074;">
+			<div class="contact100-form-title" style="background-image: url({% static 'img/bg-01.jpg' %});">
+				<span class="contact100-form-title-1">
+					Sign In
+				</span>
 
-        <br>
+				<span class="contact100-form-title-2">
+					Just get into your area!
+				</span>
+			</div>
 
-        <div class="row">
-            <div class="col-md-3" style="text-align:right">
-                <label for="id_username">Username:</label>
-            </div>
-            <div class="col-md-6">
-                <!--<input type="text" name="username" maxlength="50" required id="id_username" class="form-control">-->
-                {{ form.username }}
-            </div>
-        </div>
+			<form action="{% url 'user-login' %}" method="post" class="contact100-form validate-form">
+                {% csrf_token %}
+				<div class="wrap-input100 validate-input" data-validate="Name is required">
+					<span class="label-input100">Email:</span>
+                    {{ form.username }}
+					<span class="focus-input100"></span>
+				</div>
 
-         <br>
+				<div class="wrap-input100 validate-input" data-validate="Phone is required">
+					<span class="label-input100">Password:</span>
+					{{ form.password }}
+					<span class="focus-input100"></span>
+				</div>
 
-        <div class="row">
-            <div class="col-md-3" style="text-align:right">
-                <label>Password:</label>
-            </div>
-            <div class="col-md-6">
-                <!--<input type="password" name="password" maxlength="200" required id="id_password" class="form-control">-->
-                {{ form.password }}
-            </div>
-        </div>
-
-        <br>
-
-        <div class="row">
-            <input type="submit" name="btnsubmit" value="Create" class="btn btn-primary" style="margin-left:63%; width: 100px;">
-        </div>
-
-        <br>
-    </div>
-</form>
+				<div class="container-contact100-form-btn" style="text-align: center;">
+					<button type="submit" class="contact100-form-btn">
+						<span>
+							Submit
+							<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+						</span>
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
 
 {% endblock %}
 

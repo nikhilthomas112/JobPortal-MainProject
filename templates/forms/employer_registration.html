@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block body %}
-<form action="{% url 'employer-signup' %}" method="post" enctype="multipart/form-data">
+<!--form action="{% url 'employer-signup' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <input type="text" name="status" maxlength="10" value="pending" id="id_status" hidden>
     <input type="hidden" value="{{ user.id }}" name="user" id="id_user">
@@ -135,7 +135,100 @@
 
         <br>
     </div>
-</form>
+</form>-->
+
+
+    <div class="container-contact100">
+
+		<div class="wrap-contact100" style="border: thin double #00B074;">
+			<div class="contact100-form-title" style="background-image: url({% static 'img/bg-01.jpg' %});">
+				<span class="contact100-form-title-1">
+					New Employer
+				</span>
+
+				<span class="contact100-form-title-2">
+					Feel free to fill the fields!
+				</span>
+			</div>
+
+			<form action="{% url 'employer-signup' %}" method="post" enctype="multipart/form-data" class="contact100-form validate-form">
+                {% csrf_token %}
+                <input type="text" name="status" maxlength="10" value="pending" id="id_status" hidden>
+                <input type="hidden" value="{{ user.id }}" name="user" id="id_user">
+				<div class="wrap-input100 validate-input" data-validate="Name is required">
+					<span class="label-input100">Name:</span>
+                    {{ form.company_name }}
+					<span class="focus-input100"></span>
+				</div>
+
+
+                <div class="wrap-input100 validate-input" data-validate="Name is required">
+					<span class="label-input100">Type:</span>
+                    {{ form.company_type }}
+					<span class="focus-input100"></span>
+				</div>
+
+
+                <div class="wrap-input100 validate-input" data-validate="Name is required">
+					<span class="label-input100">About:</span>
+                    {{ form.about_company }}
+					<span class="focus-input100"></span>
+				</div>
+
+
+                <div class="wrap-input100 validate-input" data-validate="Name is required">
+					<span class="label-input100">Country:</span>
+                    <select name="country"  id="id_country" class="input100" onchange="getState()">
+                        <option value="" selected>---------</option>
+                        {% for country in countries %}
+                            <option value="{{ country.id }}">{{ country.country_name }}</option>
+                        {% endfor %}
+                    </select>
+					<span class="focus-input100"></span>
+				</div>
+
+                <div class="wrap-input100 validate-input" data-validate="Name is required">
+					<span class="label-input100">State:</span>
+                    <select name="state"  id="id_state" class="input100" onchange="getDistrict()">
+                        <option value="0" selected>---------</option>
+                    </select>
+					<span class="focus-input100"></span>
+				</div>
+
+                <div class="wrap-input100 validate-input" data-validate="Name is required">
+					<span class="label-input100">District:</span>
+                    <select name="district"  id="id_district" class="input100" onchange="getPlace()">
+                        <option value="" selected>---------</option>
+                    </select>
+					<span class="focus-input100"></span>
+				</div>
+
+
+                <div class="wrap-input100 validate-input" data-validate="Name is required">
+					<span class="label-input100">Place:</span>
+                    <select name="place" class="input100"  id="id_place">
+                        <option value="" selected>---------</option>
+                    </select>
+					<span class="focus-input100"></span>
+				</div>
+
+                <div class="wrap-input100 validate-input" data-validate="Phone is required">
+					<span class="label-input100">Logo:</span>
+					{{ form.logo }}
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="container-contact100-form-btn" style="text-align: center;">
+					<button type="submit" class="contact100-form-btn">
+						<span>
+							Submit
+							<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+						</span>
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
 
 <script>
 

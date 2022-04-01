@@ -19,7 +19,7 @@ def create_user(request):
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
-            user = form.save()
+            form.save()
             msg = 'user created'
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password1')

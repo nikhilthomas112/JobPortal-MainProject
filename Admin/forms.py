@@ -7,7 +7,7 @@ class CourseTypeRegisterForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(CourseTypeRegisterForm, self).__init__(*args, **kwargs)
         self.fields['course_type'].widget.attrs.update({
-            'class': 'form-control'
+            'class': 'input100'
         })
 
     class Meta:
@@ -19,10 +19,10 @@ class CourseRegisterForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(CourseRegisterForm, self).__init__(*args, **kwargs)
         self.fields['course_type_id'].widget.attrs.update({
-            'class': 'form-control'
+            'class': 'input100'
         })
         self.fields['course_name'].widget.attrs.update({
-            'class': 'form-control'
+            'class': 'input100'
         })
 
     class Meta:
@@ -34,7 +34,7 @@ class CountryRegisterForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(CountryRegisterForm, self).__init__(*args, **kwargs)
         self.fields['country_name'].widget.attrs.update({
-            'class': 'form-control'
+            'class': 'input100'
         })
 
     class Meta:
@@ -46,10 +46,10 @@ class StateRegisterForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(StateRegisterForm, self).__init__(*args, **kwargs)
         self.fields['country'].widget.attrs.update({
-            'class': 'form-control'
+            'class': 'input100'
         })
         self.fields['state_name'].widget.attrs.update({
-            'class': 'form-control'
+            'class': 'input100'
         })
 
     class Meta:
@@ -73,7 +73,7 @@ class DistrictRegisterForm(forms.ModelForm):
         widget=forms.Select(
             choices=choices,
             attrs={
-                "class": "form-control",
+                "class": "input100",
                 "onchange": "getState()"
             }
         )
@@ -82,11 +82,11 @@ class DistrictRegisterForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(DistrictRegisterForm, self).__init__(*args, **kwargs)
         self.fields['state'].widget.attrs.update({
-            'class': 'form-control',
+            'class': 'input100',
             "onchange": "getDistrict()"
         })
         self.fields['district_name'].widget.attrs.update({
-            'class': 'form-control'
+            'class': 'input100'
         })
 
     class Meta:
@@ -110,7 +110,7 @@ class PlaceRegisterForm(forms.ModelForm):
         widget=forms.Select(
             choices=choices_country,
             attrs={
-                "class": "form-control",
+                "class": "input100",
                 "onchange": "getState()"
             }
         )
@@ -126,7 +126,7 @@ class PlaceRegisterForm(forms.ModelForm):
         widget=forms.Select(
             choices=choices_state,
             attrs={
-                "class": "form-control",
+                "class": "input100",
                 "onchange": "getDistrict()"
             }
         )
@@ -135,11 +135,11 @@ class PlaceRegisterForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(PlaceRegisterForm, self).__init__(*args, **kwargs)
         self.fields['district'].widget.attrs.update({
-            'class': 'form-control',
+            'class': 'input100',
             "onchange": "getPlace()"
         })
         self.fields['place_name'].widget.attrs.update({
-            'class': 'form-control'
+            'class': 'input100'
         })
 
     class Meta:
