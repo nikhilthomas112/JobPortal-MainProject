@@ -5,7 +5,43 @@
 {% block body %}
 
     <br><br>
-    <div class="container">
+
+        <div style="text-align: center; width: max-content; margin: auto; border: thin double #00B074; border-radius: 20px;padding: 5% 15%">
+
+        <img src="{{ employee.avatar_image.url }}" style="width: 100px; height: 100px; border-radius:500%;">
+
+        <h3 style="text-align: center; color: #000"><b>{{ employee.first_name }} {{ employee.last_name }} </b></h3>
+
+        <dl style="text-align: left">
+
+            <dt><b>Date of Birth : {{ employee.date_of_birth }}</b></dt>
+
+            <dt><b>Contact : </b>{{ employee.contact }}</dt>
+
+            <dt><b>E-Mail : </b><a href="mailto:{{ employee.user.username.url }}" download>{{ employee.user.username }}</a></dt>
+
+            <dt><b>Address : </b>
+                <dd>
+                    {{ employee.first_name }} {{ employee.last_name }}<br>
+                    {{ employee.location.place_name }},
+                    {{ employee.location.district.district_name }}<br>
+                    {{ employee.location.district.state.state_name }},
+                    {{ employee.location.district.state.country.country_name }}<br>
+                </dd>
+            </dt>
+
+            <dt><b>Education : </b>{{ employee.course.course_name }}</dt>
+
+            <dt><b>Experience : </b>{{ employee.experience }} Years</dt>
+
+            <dt><b>Resume : </b><a href="{{ employee.resume.url }}" download> Download</a></dt>
+
+        </dl>
+
+    </div>
+
+
+    <!--div class="container">
         <div class="row">
             <div class="col-md-11" style="border: thin double #00B074; border-radius: 20px; top: 60px; padding-top: 20px">
                 <center>
@@ -23,7 +59,7 @@
                     Contact: {{ employee.contact }}
                 </p>
                 <p class="row" style="color: #444; margin-left: 180px; margin-right: 150px;">
-                    Mail ID: <a href="mailto:{{ employee.user.username.url }}" download>{{ employee.user.username }}</a>
+                    Mail ID: <a href="mailto:{{ employee.user.username }}" download>{{ employee.user.username }}</a>
                 </p>
                 <p class="row" style="color: #444; margin-left: 180px; margin-right: 150px;">
                     Address: {{ employee.location.place_name }},
@@ -103,16 +139,11 @@
                             </div>
                         </div>
                     </div>
-                </div>-->
+                </div>
 
 
             </div>
         </div>
-    </div>
-
-
-    <div style="height: 200px;">
-
-    </div>
+    </div>-->
 
 {% endblock %}

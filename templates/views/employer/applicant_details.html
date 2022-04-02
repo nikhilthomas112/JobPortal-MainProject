@@ -5,7 +5,98 @@
 {% block body %}
 
     <br>
-    <div class="container">
+
+        <div style="text-align: center; width: max-content; margin: auto; border: thin double #00B074; border-radius: 20px;padding: 5% 10%">
+
+        <img src="{{ applicant.employee.avatar_image.url }}" style="width: 100px; height: 100px; border-radius:500%;">
+
+        <h3 style="text-align: center; color: #000"><b>{{ applicant.employee.first_name }} {{ applicant.employee.last_name }} </b></h3>
+
+        <dl style="text-align: left">
+
+            <dt><b>Date of Birth : {{ applicant.employee.date_of_birth }}</b></dt>
+
+            <dt><b>Contact : </b>{{ applicant.employee.contact }}</dt>
+
+            <dt><b>E-Mail : </b><a href="mailto:{{ applicant.employee.user.username.url }}" download>{{ applicant.employee.user.username }}</a></dt>
+
+            <dt><b>Address : </b>
+                <dd>
+                    {{ applicant.employee.first_name }} {{ applicant.employee.last_name }}<br>
+                    {{ applicant.employee.location.place_name }},
+                    {{ applicant.employee.location.district.district_name }}<br>
+                    {{ applicant.employee.location.district.state.state_name }},
+                    {{ applicant.employee.location.district.state.country.country_name }}<br>
+                </dd>
+            </dt>
+
+            <dt><b>Education : </b>{{ applicant.employee.course.course_name }}</dt>
+
+            <dt><b>Experience : </b>{{ applicant.employee.experience }} Years</dt>
+
+            <dt><b>Resume : </b><a href="{{ applicant.employee.resume.url }}" download> Download</a></dt>
+
+        </dl>
+
+
+        <form action="{% url 'applicant-details' %}" method="post">
+                                        {% csrf_token %}
+                                        <br>
+        <h5>Update Status</h5>
+                                        <input type="hidden" name="application_id" value="{{ applicant.id }}">
+                                        <select name="status" id="id_status" class="form-control">
+
+                                            {% if applicant.status == "submitted" %}
+
+                                                <option value="submitted" selected>Submitted</option>
+                                                <option value="reviewed">Reviewed</option>
+                                                <option value="resume_shortlisted">Resume Shortlisted</option>
+                                                <option value="assessment">Selected for Assessment</option>
+                                                <option value="selected">Selected</option>
+
+                                            {% elif applicant.status == "reviewed" %}
+                                                <option value="submitted" >Submitted</option>
+                                                <option value="reviewed" selected>Reviewed</option>
+                                                <option value="resume_shortlisted" >Resume Shortlisted</option>
+                                                <option value="assessment">Selected for Assessment</option>
+                                                <option value="selected">Selected</option>
+
+                                            {% elif applicant.status == "resume_shortlisted" %}
+                                                <option value="submitted" >Submitted</option>
+                                                <option value="reviewed" >Reviewed</option>
+                                                <option value="resume_shortlisted" selected>Resume Shortlisted</option>
+                                                <option value="assessment">Selected for Assessment</option>
+                                                <option value="selected">Selected</option>
+
+                                            {% elif applicant.status == "assessment" %}
+                                                <option value="submitted" >Submitted</option>
+                                                <option value="reviewed" >Reviewed</option>
+                                                <option value="resume_shortlisted">Resume Shortlisted</option>
+                                                <option value="assessment" selected>Selected for Assessment</option>
+                                                <option value="selected">Selected</option>
+
+                                            {% elif applicant.status == "selected" %}
+                                                <option value="submitted" >Submitted</option>
+                                                <option value="reviewed" >Reviewed</option>
+                                                <option value="resume_shortlisted">Resume Shortlisted</option>
+                                                <option value="assessment" >Selected for Assessment</option>
+                                                <option value="selected" selected>Selected</option>
+
+                                            {% endif %}
+
+                                        </select>
+
+                                        <center>
+                                            <br>
+                                            <input type="submit" value="Save" class="btn btn-primary">
+                                        </center>
+                                        <br>
+                                    </form>
+
+    </div>
+
+
+    <!--div class="container">
         <div class="row">
             <div class="col-md-11" style="border: thin double #00B074; border-radius: 20px;">
                 <br>
@@ -111,7 +202,7 @@
 
             </div>
         </div>
-    </div>
+    </div>-->
 
 
     <div style="height: 200px;">

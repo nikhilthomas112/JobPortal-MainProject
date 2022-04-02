@@ -81,7 +81,7 @@ def view_employee_details(request):
 
 def view_all_employers(request):
     if request.user.is_authenticated and request.user.is_app_admin:
-        employers = Employer.objects.all
+        employers = Employer.objects.filter(status='accepted')
         return render(request, 'views/admin/all_employers.html', {
             'employers': employers,
         })

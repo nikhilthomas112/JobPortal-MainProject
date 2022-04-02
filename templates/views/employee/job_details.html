@@ -5,7 +5,64 @@
 {% block body %}
 
     <br><br>
-    <div class="container">
+
+    <div style="text-align: center; width: max-content; margin: auto; border: thin double #00B074; border-radius: 20px;padding: 5% 15%">
+
+
+        <h3 style="text-align: center; color: #000"><b>{{ jobs.job_title }} </b></h3>
+
+        <dl style="text-align: left">
+
+            <dt><b>Post Date : {{ jobs.post_date }}</b></dt>
+
+            {% if is_applied %}
+
+                <dt><b>Application Status: </b>{{ status }}</dt>
+
+            {% endif %}
+
+            <dt><b>Description : </b>
+                <dd>
+                    {{ jobs.job_description }}
+                </dd>
+            </dt>
+
+            <dt><b>Monthly Salary : </b>{{ jobs.salary }}</dt>
+
+            <dt><b>Qualifications : </b>{{ jobs.course_name }}</dt>
+
+            <dt><b>Preferred Experience : </b>{{ jobs.experience }}</dt>
+
+            <dt><b>Vacancies : </b>{{ jobs.vacancies }}</dt>
+
+            <dt><b>About the organization : </b>
+                <dd>
+                    <img src="{{ jobs.employer.logo.url }}" style="width: 40px; height: 40px; border-radius:500%;"> <b style="font-size: larger">{{ jobs.employer.company_name }}</b>
+
+                    <dt><b>About : </b>
+                        <dd>
+                            {{ jobs.employer.about_company }}
+                        </dd>
+                    </dt>
+
+                </dd>
+            </dt>
+
+        </dl>
+
+        {% if is_authenticated %}
+            {% if is_applied %}
+                <a class="btn btn-primary" style=" " disabled>Applied</a>
+            {% else %}
+                <a href="{% url 'apply-job' %}?jobid={{ jobs.id }}" class="btn btn-primary" style="">Apply</a>
+            {% endif %}
+        {% else %}
+            <a href="{% url 'user-login' %}" class="btn btn-primary" style="">Login to Apply</a>
+        {% endif %}
+
+    </div>
+
+    <!--div class="container">
         <div class="row">
             <div class="col-md-11" style="border: thin double #00B074; border-radius: 20px; top: 60px; padding-top: 20px">
                 <h3 style="text-align: center; color: #000"><b>{{ jobs.job_title }} </b></h3>
@@ -47,11 +104,8 @@
 
             </div>
         </div>
-    </div>
+    </div>-->
 
 
-    <div style="height: 200px;">
-
-    </div>
 
 {% endblock %}

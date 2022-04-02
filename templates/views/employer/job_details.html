@@ -5,77 +5,78 @@
 {% block body %}
 
     <br><br>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-11" style=" margin-left:4% ;box-sizing:border-box; margin-bottom:2%; padding:30px 40px 30px 120px; border: thin double #00B074; border-radius: 20px; margin-top:3%;">
-                <h3 style="text-align: center; color: #000"><b>{{ jobs.job_title }} </b></h3>
-                <p class="row" style="color: #444; margin-left: 100px; margin-right: 100px;">
-                    {{ jobs.post_date }}
-                </p>
-                <p class="row" style="color: #444; margin-left: 100px; margin-right: 100px;">
+
+    <div style="text-align: center; width: fit-content;  margin: auto; border: thin double #00B074; border-radius: 20px;padding: 5% 7%">
+
+
+        <h3 style="text-align: center; color: #000"><b>{{ jobs.job_title }} </b></h3>
+
+        <dl style="text-align: left">
+
+            <dt><b>Post Date : {{ jobs.post_date }}</b></dt>
+
+            {% if is_applied %}
+
+                <dt><b>Application Status: </b>{{ status }}</dt>
+
+            {% endif %}
+
+            <dt><b>Description : </b>
+                <dd>
                     {{ jobs.job_description }}
-                </p>
-                <p class="row" style="color: #444; margin-left: 100px; margin-right: 100px;">
-                    Monthly Salary: {{ jobs.salary }}
-                </p>
-                <p class="row" style="color: #444; margin-left: 100px; margin-right: 100px;">
-                    Preferred Course: {{ jobs.course_name }}
-                </p>
-                <p class="row" style="color: #444; margin-left: 100px; margin-right: 100px;">
-                    Preferred Experience: {{ jobs.experience }}
-                </p>
-                <p class="row" style="color: #444; margin-left: 100px; margin-right: 100px;">
-                    Available Vacancies: {{ jobs.vacancies }}
-                </p>
+                </dd>
+            </dt>
+
+            <dt><b>Monthly Salary : </b>{{ jobs.salary }}</dt>
+
+            <dt><b>Qualifications : </b>{{ jobs.course_name }}</dt>
+
+            <dt><b>Preferred Experience : </b>{{ jobs.experience }}</dt>
+
+            <dt><b>Vacancies : </b>{{ jobs.vacancies }}</dt>
+
+            <dt><b>About the organization : </b>
+                <dd>
+                    <img src="{{ jobs.employer.logo.url }}" style="width: 40px; height: 40px; border-radius:500%;"> <b style="font-size: larger">{{ jobs.employer.company_name }}</b>
+
+                    <dt><b>About : </b>
+                        <dd>
+                            {{ jobs.employer.about_company }}
+                        </dd>
+                    </dt>
+
+                </dd>
+            </dt>
+
+        </dl>
 
 
-                <div class="container" style="margin-left:30px; ">
-                    <div class="row" >
-                        <div class="col-md-11" style="border: thin double #00B074; border-radius: 20px;">
-                            <br>
-                            <h3 style="text-align: center; color: #000"><b>APPLICANTS </b></h3>
-                            <div class="form-horizontal">
-                                <div class="form-group">
+        <h4>Applicants</h4>
 
+        {% for applicant in applicants %}
 
-                                    <table class="table table-hover" style=" border-radius: 10px; box-shadow: 3px 3px 11px #777777; margin-bottom:7%; margin-top:20px;">
-                                        <tr>
-                                            <th>Image</th>
-                                            <th>Name</th>
-                                            <th>DOB</th>
-                                            <th>Contact</th>
-                                            <th>Address</th>
-                                            <th>Education</th>
-                                            <th>Experience</th>
-                                            <th>Vacancies</th>
-                                        </tr>
-
-                                    {% for applicant in applicants %}
-                                        <tr onclick="window.location='{% url 'applicant-details' %}?applicant={{ applicant.id }}'">
-                                            <td><img src="{{ applicant.employee.avatar_image.url }}" style="width:50px; border-radius:10px;"/> </td>
-                                            <td>{{ applicant.employee.first_name }} {{ applicant.employee.last_name }}</td>
-                                            <td>{{ applicant.employee.date_of_birth }}</td>
-                                            <td>{{ applicant.employee.contact }}</td>
-                                            <td>{{ applicant.employee.location.place_name }},
-                                                {{ applicant.employee.location.district.district_name }},
-                                                {{ applicant.employee.location.district.state.state_name }},
-                                                {{ applicant.employee.location.district.state.country.country_name }}</td>
-                                            <td>{{ applicant.employee.course.course_name }}</td>
-                                            <td>{{ applicant.employee.experience }}</td>
-                                            <td>{{ applicant.job.vacancies }}</td>
-                                        </tr>
-                                    {% endfor %}
-
-                                    </table>
+                            <div class="job-item p-4 mb-4" style="margin: 7px;">
+                                <div class="row g-4">
+                                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
+                                        <img class="flex-shrink-0 img-fluid border rounded" src="{{ applicant.employee.avatar_image.url }}" alt="" style="width: 80px; height: 80px;">
+                                        <div class="text-start ps-4">
+                                            <h5 class="mb-3">{{ applicant.employee.first_name }} {{ applicant.employee.last_name }}</h5>
+                                            <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i>{{ applicant.employee.location.place_name }},{{ applicant.employee.location.district.district_name }}</span>
+                                            <span class="text-truncate me-3"><i class="far fa fa-graduation-cap text-primary me-2"></i>{{ applicant.employee.course.course_name }}</span>
+                                            <span class="text-truncate me-0"><i class="far fa-address-book text-primary me-2"></i>{{ applicant.employee.contact }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
+                                        <div class="d-flex mb-3">
+                                            <a class="btn btn-primary" href="{% url 'applicant-details' %}?applicant={{ applicant.id }}">View</a>
+                                        </div>
+                                        <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i>Date of Birth: {{ applicant.employee.date_of_birth }}</small>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
 
+                        {% endfor %}
 
-            </div>
-        </div>
     </div>
 
 

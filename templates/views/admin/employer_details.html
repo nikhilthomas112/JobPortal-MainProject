@@ -1,29 +1,80 @@
-{% extends 'base/employer/base.html' %}
+{% extends 'base/admin/base.html' %}
 
 {% load static %}
 
 {% block body %}
 
     <br><br>
-    <div class="container">
+
+    <div style="text-align: center; width: max-content; margin: auto; border: thin double #00B074; border-radius: 20px;padding: 5% 15%">
+
+        <img src="{{ employer.logo.url }}" style="width: 100px; height: 100px; border-radius:500%;">
+
+        <h3 style="text-align: center; color: #000"><b>{{ employer.company_name }} </b></h3>
+
+        <dl style="text-align: left">
+
+            <dt><b>Category : {{ employer.company_type }}</b></dt>
+
+            <dt><b>About : </b>
+                <dd>
+                    {{ employer.about_company }}
+                </dd>
+            </dt>
+
+            <dt><b>E-Mail : </b><a href="mailto:{{ employer.user.username.url }}">{{ employer.user.username }}</a></dt>
+
+            <dt><b>Address : </b>
+                <dd>
+                    {{ employer.company_name }}<br>
+                    {{ employer.place.place_name }},
+                    {{ employer.place.district.district_name }}<br>
+                    {{ employer.place.district.state.state_name }},
+                    {{ employer.place.district.state.country.country_name }}<br>
+                </dd>
+            </dt>
+
+        </dl>
+
+        {% if employer.status == "pending" %}
+            <p class="row" style="color: #444; margin-left: 180px; margin-right: 150px;">
+                <center>
+                    <a href="{% url 'update-employer-status' %}?reject={{ employer.id }}" class="btn btn-primary" style="background:red;">Reject</a>
+                    <a href="{% url 'update-employer-status' %}?accept={{ employer.id }}" class="btn btn-primary">Accept</a>
+                </center>
+            </p>
+        {% endif %}
+
+        {% if employer.status == "accepted" %}
+            <p class="row" style="color: #444; margin-left: 180px; margin-right: 150px;">
+                <center>
+                    <a href="{% url 'update-employer-status' %}?reject={{ employer.id }}" class="btn btn-primary" style="background:red;">Reject</a>
+                </center>
+            </p>
+        {% endif %}
+
+    </div>
+
+    <br><br>
+    <!--div class="container">
         <div class="row">
             <div class="col-md-11" style=" border: thin double #00B074; border-radius: 20px; top: 60px; padding-top: 20px">
-                <!--<center>
-                    <img src="{{ employee.avatar_image.url }}" style="width: 100px; height: 100px; border-radius:500%;">
+                <center>
+                    <img src="{{ employer.logo.url }}" style="width: 100px; height: 100px; border-radius:500%;">
                     <br>
-                </center>-->
+                </center>
                 <h3 style="text-align: center; color: #000"><b>{{ employer.company_name }} </b></h3>
                 <p class="row" style="color: #444; margin-left: 180px; margin-right: 150px;">
                     Name: {{ employer.company_name }}
                 </p>
                 <p class="row" style="color: #444; margin-left: 180px; margin-right: 150px;">
-                    About: {{ employer.about_company }}
-                </p>
-                <p class="row" style="color: #444; margin-left: 180px; margin-right: 150px;">
                     Organization Category: {{ employer.company_type }}
                 </p>
                 <p class="row" style="color: #444; margin-left: 180px; margin-right: 150px;">
-                    Mail ID: <a href="mailto:{{ employer.user.username.url }}" download>{{ employer.user.username }}</a>
+                    About: {{ employer.about_company }}
+                </p>
+                <p class="row" style="color: #444; margin-left: 180px; margin-right: 150px;">
+                    Mail ID: <a href="mailto:{{ employer.user.username.url }}">{{ employer.user.username }}</a>
                 </p>
                 <p class="row" style="color: #444; margin-left: 180px; margin-right: 150px;">
                     Address: {{ employer.place.place_name }},
@@ -31,7 +82,7 @@
                     {{ employer.place.district.state.state_name }},
                     {{ employer.place.district.state.country.country_name }}
                 </p>
-                {% if status != "0" %}
+                {% if employer.status != "0" %}
                     <p class="row" style="color: #444; margin-left: 180px; margin-right: 150px;">
                         <center>
                             <a href="{% url 'update-employer-status' %}?reject={{ employer.id }}" class="btn btn-primary" style="background:red;">Reject</a>
@@ -45,11 +96,8 @@
 
             </div>
         </div>
-    </div>
+    </div>-->
 
 
-    <div style="height: 200px;">
-
-    </div>
 
 {% endblock %}
